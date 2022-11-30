@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect } from 'react';
 import MainRoutes from './routes/MainRoutes';
 import { useNavigate } from 'react-router-dom';
+import { GlobalStoreContext } from './Context/GlobalContext';
 
 function App() {
   const navigate = useNavigate();
@@ -13,7 +14,9 @@ function App() {
   }, [sessionStorage.getItem('token')]);
   return (
     <React.Fragment>
-      <MainRoutes />
+      <GlobalStoreContext>
+        <MainRoutes />
+      </GlobalStoreContext>
     </React.Fragment>
   );
 }

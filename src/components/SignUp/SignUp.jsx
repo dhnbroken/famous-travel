@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { MDBTabsPane, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
 import { useForm } from 'react-hook-form';
 import { signup } from '../../api/auth-service';
+import { GlobalContextProvider } from '../../Context/GlobalContext';
 
 function SignUp({ justifyActive }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { username, setUsername, password, setPassword } = React.useContext(GlobalContextProvider);
   const [email, setEmail] = useState('');
 
   const { handleSubmit } = useForm();
