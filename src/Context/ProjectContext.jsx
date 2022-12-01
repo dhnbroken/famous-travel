@@ -1,4 +1,6 @@
 export const ProjectContext = {
+  email: '',
+  setEmail: () => {},
   username: '',
   setUserName: () => {},
   password: '',

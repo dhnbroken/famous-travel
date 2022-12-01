@@ -17,9 +17,31 @@ export const logout = async () => {
   removeUserSession();
 };
 
-export const signup = async ({ username, password }) => {
+export const signup = async ({
+  username,
+  password,
+  avatarPath,
+  firstName,
+  lastName,
+  emailAddress,
+  organization,
+  phoneNumber,
+  birthDate,
+  location,
+}) => {
   try {
-    const res = await axios.post('http://localhost:4000/register', { username, password });
+    const res = await axios.post('http://localhost:4000/register', {
+      username,
+      password,
+      avatarPath,
+      firstName,
+      lastName,
+      emailAddress,
+      organization,
+      phoneNumber,
+      birthDate,
+      location,
+    });
     return res;
   } catch (err) {
     console.log(err);

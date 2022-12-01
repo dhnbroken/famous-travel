@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MDBTabsPane, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
 import { useForm } from 'react-hook-form';
-import { signup } from '../../api/auth-service';
 import { GlobalContextProvider } from '../../Context/GlobalContext';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp({ justifyActive }) {
-  const { username, setUsername, password, setPassword } = React.useContext(GlobalContextProvider);
-  const [email, setEmail] = useState('');
+  const { setUsername, setPassword, setEmail, username, password, email } = React.useContext(GlobalContextProvider);
+  const navigate = useNavigate();
 
   const { handleSubmit } = useForm();
   const formSubmitHandler = () => {
-    console.log(username, password, email);
-    signup({
-      username,
-      password,
-    });
+    if (email && password && username) {
+      console.log(username, password, email);
+      sessionStorage.setItem('isRegister', true);
+      navigate('/user/info');
+    }
   };
 
   return (

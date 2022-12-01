@@ -4,9 +4,14 @@ import { publicRoutes } from './Routes';
 import DefaultLayout from 'src/Layout/DefaultLayout/DefaultLayout';
 import Login from 'src/pages/Login/Login';
 import Home from 'src/pages/Home/Home';
+import UserInfo from 'src/pages/UserInfo/UserInfo';
 
 const getAccessToken = () => {
   return sessionStorage.getItem('token');
+};
+
+const getRegister = () => {
+  return sessionStorage.getItem('isRegister');
 };
 const MainRoutes = () => {
   return (
@@ -23,6 +28,8 @@ const MainRoutes = () => {
                   <DefaultLayout>
                     <Page />
                   </DefaultLayout>
+                ) : getRegister() ? (
+                  <UserInfo />
                 ) : (
                   <Login />
                 )

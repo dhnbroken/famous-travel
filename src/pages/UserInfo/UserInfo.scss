@@ -6,6 +6,12 @@ body {
 .img-account-profile {
   height: 10rem;
 }
+.avatar {
+  vertical-align: middle;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+}
 .rounded-circle {
   border-radius: 50% !important;
 }

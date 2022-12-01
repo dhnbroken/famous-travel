@@ -9,14 +9,15 @@ const Schema = mongoose.Schema;
 
 const AuthSchema = new Schema(
   {
-    username: String,
-    password: String,
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    emailAddress: { type: String, required: true },
   },
   {
-    collection: 'user',
+    collection: 'userAuth',
   },
 );
 
-const AuthModel = conn.model('user', AuthSchema);
+const AuthModel = conn.model('userAuth', AuthSchema);
 
 module.exports = AuthModel;

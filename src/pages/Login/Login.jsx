@@ -1,25 +1,11 @@
-/* eslint-disable react/style-prop-object */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { faFacebook, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import LoginTab from '../../components/Login/Login';
 import SignUp from '../../components/SignUp/SignUp';
 import { MDBContainer, MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent } from 'mdb-react-ui-kit';
 
 import './Login.scss';
-
-// const schema = yup
-//   .object({
-//     emailAddress: yup.string().max(20).required(),
-//     password: yup.string().min(6).max(20).required(),
-//   })
-//   .required();
 
 const Login = () => {
   const navigate = useNavigate();
@@ -32,7 +18,6 @@ const Login = () => {
     }
     setJustifyActive(value);
   };
-  const [hide, setHide] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem('token')) {

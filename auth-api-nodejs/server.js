@@ -5,12 +5,14 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const utils = require('./utils');
+const multer = require('multer');
 
 const app = express();
 const port = process.env.PORT || 4000;
 const AuthModel = require('./models/account.js');
 const CoordsModel = require('./models/places');
 const UserModel = require('./models/user');
+const ImgModel = require('./models/images');
 
 // static user details
 // const userData = {
@@ -24,7 +26,7 @@ app.use(cors());
 // parse application/json
 app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // middleware that checks if JWT token exists and verifies it if it does exist.
 // In all future routes, this helps to know if the request is authenticated or not.
@@ -47,6 +49,84 @@ app.use(function (req, res, next) {
   });
 });
 
+//storage
+const Storage = multer.diskStorage({
+  destination: 'uploads',
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+var upload = multer({ storage: Storage });
+
+// app.post('/upload', (req, res, next) => {
+//   upload(req, res, (err) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       const newImg = new ImgModel({
+//         name: req.body.name,
+//         image: {
+//           data: req.file.filename,
+//           contentType: 'image/png',
+//         },
+//       });
+//       newImg
+//         .save()
+//         .then(() => res.send('success'))
+//         .catch((err) => console.log(err));
+//     }
+//   });
+// });
+
+app.post('/register', upload.single('avatar'), (req, res, next) => {
+  var username = req.body.username;
+  var password = req.body.password;
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var organization = req.body.organization;
+  var location = req.body.location;
+  var emailAddress = req.body.emailAddress;
+  var phoneNumber = req.body.phoneNumber;
+  var birthDate = req.body.birthDate;
+  var avatarPath = req.body.avatarPath;
+
+  AuthModel.findOne({
+    username: username,
+  })
+    .then((data) => {
+      if (data) {
+        return res.json('username has been used');
+      } else {
+        return AuthModel.create({
+          username,
+          password,
+          emailAddress,
+        }).then((data) => {
+          UserModel.create({
+            avatarPath,
+            firstName,
+            lastName,
+            organization,
+            location,
+            emailAddress,
+            phoneNumber,
+            birthDate,
+            accountId: data._id,
+          });
+        });
+      }
+    })
+    .then((data) => {
+      res.json('Register successful');
+    })
+    .catch((err) => {
+      if (res.headersSent !== true) {
+        res.send(err);
+      }
+    });
+});
+
 // request handlers
 app.get('/', (req, res) => {
   if (!req.user) return res.status(401).json({ success: false, message: 'Invalid user to access it.' });
@@ -63,30 +143,52 @@ app.get('/coords', async (req, res, next) => {
 });
 
 //register user
-app.post('/register', (req, res, next) => {
-  var username = req.body.username;
-  var password = req.body.password;
+// app.post('/register', (req, res, next) => {
+//   var username = req.body.username;
+//   var password = req.body.password;
+//   var firstName = req.body.firstName;
+//   var lastName = req.body.lastName;
+//   var organization = req.body.organization;
+//   var location = req.body.location;
+//   var emailAddress = req.body.emailAddress;
+//   var phoneNumber = req.body.phoneNumber;
+//   var birthDate = req.body.birthDate;
 
-  AuthModel.findOne({
-    username: username,
-  })
-    .then((data) => {
-      if (data) {
-        return res.json('username has been used');
-      } else {
-        return AuthModel.create({
-          username: username,
-          password: password,
-        });
-      }
-    })
-    .then((data) => {
-      res.json('Register successful');
-    })
-    .catch((err) => {
-      res.status(500).json('Register failed');
-    });
-});
+//   AuthModel.findOne({
+//     username: username,
+//   })
+//     .then((data) => {
+//       if (data) {
+//         return res.json('username has been used');
+//       } else {
+//         return AuthModel.create({
+//           username: username,
+//           password: password,
+//           userInfo: {
+//             avatar: {
+//               data: req.file.filename,
+//               contentType: 'image/png',
+//             },
+//             firstName,
+//             lastName,
+//             organization,
+//             location,
+//             emailAddress,
+//             phoneNumber,
+//             birthDate,
+//           },
+//         });
+//       }
+//     })
+//     .then((data) => {
+//       res.json('Register successful');
+//     })
+//     .catch((err) => {
+//       if (res.headersSent !== true) {
+//         res.send(err);
+//       }
+//     });
+// });
 
 app.post('/login', (req, res) => {
   var username = req.body.username;
