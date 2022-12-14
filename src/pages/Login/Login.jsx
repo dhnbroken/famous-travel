@@ -20,10 +20,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
       navigate('/home');
     }
-  }, [sessionStorage.getItem('token')]);
+  }, [localStorage.getItem('token')]);
   return (
     <React.Fragment>
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">

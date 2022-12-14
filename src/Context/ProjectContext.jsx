@@ -5,4 +5,8 @@ export const ProjectContext = {
   setUserName: () => {},
   password: '',
   setPassword: () => {},
+  currentUser: {},
+  getUserInfomation: () => {},
+  placeSaved: [],
+  getPlaceSaved: () => {},
 };

@@ -1,28 +1,28 @@
-import axios from 'axios';
-import { removeUserSession, setUserSession } from 'src/utils/Common/Common';
+import { axiosInstance } from './axios';
 
 export const login = async ({ username, password }) => {
-  return await axios
-    .post('http://localhost:4000/login', {
+  return await axiosInstance
+    .post('/auth/login', {
       username,
       password,
     })
     .then((res) => {
-      setUserSession(res.data.token, res.data.user);
-      return res;
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('userId', res.data.user._id);
     });
 };
 
 export const logout = async () => {
-  removeUserSession();
+  localStorage.removeItem('token');
+  localStorage.removeItem('userId');
 };
 
 export const signup = async ({
   username,
   password,
   avatarPath,
-  firstName,
-  lastName,
+  firstname,
+  lastname,
   emailAddress,
   organization,
   phoneNumber,
@@ -30,18 +30,21 @@ export const signup = async ({
   location,
 }) => {
   try {
-    const res = await axios.post('http://localhost:4000/register', {
+    const res = await axiosInstance.post('/auth/register', {
       username,
       password,
       avatarPath,
-      firstName,
-      lastName,
+      firstname,
+      lastname,
       emailAddress,
       organization,
       phoneNumber,
       birthDate,
       location,
     });
+    if (res.status === 200) {
+      localStorage.removeItem('isRegister');
+    }
     return res;
   } catch (err) {
     console.log(err);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 import { AppBar, Toolbar, Typography, InputBase, Box, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import useStyles from './styles';
 import { logout } from '../../api/auth-service';
@@ -31,7 +31,9 @@ const Header = ({ setCoords }) => {
     <AppBar position="static">
       <Toolbar className={classes.toolbar}>
         <Typography variant="h5" className={classes.title}>
-          Travel Advisor
+          <Link to={'/home'} className={classes.link}>
+            Travel Advisor
+          </Link>
         </Typography>
         <Box display="flex">
           <Typography variant="h6" className={classes.title}>

@@ -1,5 +1,5 @@
 export function authHeader() {
-  const userStr = sessionStorage.getItem('token');
+  const userStr = localStorage.getItem('token');
   let token = '';
   if (userStr) {
     token = JSON.parse(userStr);

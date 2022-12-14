@@ -1,36 +1,27 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext } from 'react';
 
 import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip, Rating } from '@mui/material';
 import { LocationOn, Phone } from '@mui/icons-material';
 
 import useStyles from './styles';
 import { useEffect } from 'react';
-import { getPlace, savePlace } from '../../api/plan-service';
+import { savePlace } from '../../api/plan-service';
+import { GlobalContextProvider } from 'src/Context/GlobalContext';
 const PlaceDetails = ({ place, selected, refProp }) => {
   if (selected) {
     refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   const classes = useStyles();
-  const [placeSaved, setPlaceSaved] = useState([]);
+  const { getPlaceSaved } = useContext(GlobalContextProvider);
 
-  const getPlaceSaved = async () => {
-    try {
-      const res = await getPlace();
-      setPlaceSaved(res);
-    } catch (error) {}
-  };
   useEffect(() => {
     getPlaceSaved();
   }, []);
-  useEffect(() => {
-    console.log(placeSaved);
-  }, [placeSaved]);
-
   const handleSavePlace = async (place) => {
     const data = {
       name: place.name,
-      type: 'Point',
       longitude: place.longitude,
       latitude: place.latitude,
     };

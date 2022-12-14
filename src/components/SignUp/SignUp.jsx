@@ -12,7 +12,7 @@ function SignUp({ justifyActive }) {
   const formSubmitHandler = () => {
     if (email && password && username) {
       console.log(username, password, email);
-      sessionStorage.setItem('isRegister', true);
+      localStorage.setItem('isRegister', true);
       navigate('/user/info');
     }
   };
@@ -46,6 +46,7 @@ function SignUp({ justifyActive }) {
 
         <MDBInput wrapperClass="mb-4" label="Username" type="text" onChange={(e) => setUsername(e.target.value)} />
         <MDBInput wrapperClass="mb-4" label="Email" type="email" onChange={(e) => setEmail(e.target.value)} />
+        <MDBInput wrapperClass="mb-4" label="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
         <MDBInput wrapperClass="mb-4" label="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
 
         <div className="d-flex justify-content-center mb-4">

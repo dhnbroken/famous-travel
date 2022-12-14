@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { publicRoutes } from './Routes';
@@ -6,13 +7,13 @@ import Login from 'src/pages/Login/Login';
 import Home from 'src/pages/Home/Home';
 import UserInfo from 'src/pages/UserInfo/UserInfo';
 
+const getRegister = () => {
+  return localStorage.getItem('isRegister');
+};
 const getAccessToken = () => {
-  return sessionStorage.getItem('token');
+  return localStorage.getItem('token');
 };
 
-const getRegister = () => {
-  return sessionStorage.getItem('isRegister');
-};
 const MainRoutes = () => {
   return (
     <React.Fragment>

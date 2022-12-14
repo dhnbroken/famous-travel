@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Paper, Typography, useMediaQuery, Rating } from '@mui/material';
 import { LocationOnOutlined } from '@mui/icons-material';

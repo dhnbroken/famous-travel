@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import '../../App.css';
 import React, { useState, useEffect } from 'react';
 import { CssBaseline, Grid } from '@mui/material';

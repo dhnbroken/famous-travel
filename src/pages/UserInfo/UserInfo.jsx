@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
 import Header from 'src/components/Header/Header';
 import { useForm } from 'react-hook-form';
@@ -9,32 +10,39 @@ import { GlobalContextProvider } from 'src/Context/GlobalContext';
 import './UserInfo.scss';
 
 function UserInfo() {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const { username, password, email, setUsername, setPassword, setEmail } = useContext(GlobalContextProvider);
+  const { username, password, email, setUsername, setPassword, setEmail, currentUser } =
+    useContext(GlobalContextProvider);
   const [avatar, setAvatar] = useState(null);
+
+  console.log(currentUser);
 
   const onSubmit = (data) => {
     console.log(data, avatar);
     signup({
-      username: username,
-      password: password,
+      username,
+      password,
       emailAddress: email,
       avatarPath: avatar,
-      firstName: data.firstName,
-      lastName: data.lastName,
+      firstname: data.firstName,
+      lastname: data.lastName,
       location: data.location,
       organization: data.organization,
       phoneNumber: data.phoneNumber,
       birthDate: data.birthDate,
+    }).then((data) => {
+      if (data.status === 200) {
+        navigate('/login');
+      }
     });
   };
-  const navigate = useNavigate();
 
   const handleCancleSave = () => {
     setUsername('');
     setPassword('');
     setEmail('');
-    sessionStorage.removeItem('isRegister');
+    localStorage.removeItem('isRegister');
     navigate('/login');
   };
 
@@ -80,6 +88,7 @@ function UserInfo() {
                         id="inputFirstName"
                         type="text"
                         placeholder="Enter your first name"
+                        defaultValue={currentUser.firstname}
                         {...register('firstName')}
                       />
                     </div>
@@ -88,6 +97,7 @@ function UserInfo() {
                         Last name
                       </label>
                       <input
+                        defaultValue={currentUser.lastname}
                         className="form-control"
                         id="inputLastName"
                         type="text"
@@ -130,7 +140,7 @@ function UserInfo() {
                       className="form-control"
                       id="inputEmailAddress"
                       type="email"
-                      defaultValue={email}
+                      defaultValue={currentUser.emailAddress || email}
                       placeholder="Enter your email address"
                       {...register('emailAddress')}
                     />

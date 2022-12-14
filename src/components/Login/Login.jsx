@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { MDBTabsPane, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
 import { login } from '../../api/auth-service';
 import { useNavigate } from 'react-router-dom';
 
 import { useForm } from 'react-hook-form';
+import { GlobalContextProvider } from 'src/Context/GlobalContext';
 
 function LoginTab({ justifyActive }) {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { getUserInfomation } = useContext(GlobalContextProvider);
 
   const { handleSubmit } = useForm();
   const formSubmitHandler = () => {
@@ -18,7 +20,8 @@ function LoginTab({ justifyActive }) {
       username: username,
       password: password,
     }).then(() => {
-      navigate('/home');
+      navigate('/chat');
+      getUserInfomation();
     });
   };
   return (
