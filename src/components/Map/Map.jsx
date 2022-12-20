@@ -5,7 +5,7 @@ import { LocationOnOutlined } from '@mui/icons-material';
 
 import useStyles from './styles';
 
-const Map = ({ setCoords, setBounds, coords, places, setChildClicked }) => {
+const MapDetails = ({ setCoords, setBounds, coords, places, setChildClicked }) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery('(min-width: 600px)');
   const placesPhoto =
@@ -14,7 +14,7 @@ const Map = ({ setCoords, setBounds, coords, places, setChildClicked }) => {
   return (
     <div className={classes.mapContainer}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyCvToEoweGr-UW-Le1YuX_-Z1Gjir57CBA' }}
+        bootstrapURLKeys={{ key: 'AIzaSyD0mrCeO6glvICNx5PmTneObqONZS7Lc-s' }}
         defaultCenter={coords}
         center={coords}
         defaultZoom={14}
@@ -56,4 +56,4 @@ const Map = ({ setCoords, setBounds, coords, places, setChildClicked }) => {
   );
 };
 
-export default Map;
+export default MapDetails;

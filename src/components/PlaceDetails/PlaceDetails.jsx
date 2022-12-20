@@ -7,7 +7,7 @@ import { LocationOn, Phone } from '@mui/icons-material';
 import useStyles from './styles';
 import { useEffect } from 'react';
 import { savePlace } from '../../api/plan-service';
-import { GlobalContextProvider } from 'src/Context/GlobalContext';
+import { GlobalContextProvider } from 'src/GlobalContext/GlobalContext';
 const PlaceDetails = ({ place, selected, refProp }) => {
   if (selected) {
     refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -24,6 +24,7 @@ const PlaceDetails = ({ place, selected, refProp }) => {
       name: place.name,
       longitude: place.longitude,
       latitude: place.latitude,
+      photoPath: place.photo.images.large.url,
     };
     await savePlace(data);
     await getPlaceSaved();

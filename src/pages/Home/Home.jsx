@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import '../../App.css';
+import 'src/App.css';
 import React, { useState, useEffect } from 'react';
 import { CssBaseline, Grid } from '@mui/material';
 
-import { getPlacesData } from '../../api';
-import List from '../../components/List/List';
-import Map from '../../components/Map/Map';
-import Header from '../../components/Header/Header';
+import { getPlacesData } from 'src/api';
+import List from 'src/components/List/List';
+import Map from 'src/components/Map/Map';
+import Header from 'src/components/Header/Header';
 
 function Home() {
   const [places, setPlaces] = useState([]);

@@ -6,11 +6,14 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import useStyles from './styles';
 import { logout } from '../../api/auth-service';
+import { auth } from 'src/firebase/config';
+import { AppContext } from 'src/Context/AppProvider';
 
 const Header = ({ setCoords }) => {
   const navigate = useNavigate();
   const classes = useStyles();
   const [autocomplete, setAutocomplete] = useState(null);
+  const { clearState } = React.useContext(AppContext);
 
   const onLoad = (autoC) => {
     setAutocomplete(autoC);
@@ -25,6 +28,8 @@ const Header = ({ setCoords }) => {
 
   const handleLogOut = () => {
     logout();
+    clearState();
+    auth.signOut();
     navigate('/login');
   };
   return (

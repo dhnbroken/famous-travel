@@ -1,52 +1,57 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Row, Col, Button, Typography } from 'antd';
+import firebase, { auth } from 'src/firebase/config';
+import { addDocument, generateKeywords } from 'src/firebase/services';
 import { useNavigate } from 'react-router-dom';
-import LoginTab from '../../components/Login/Login';
-import SignUp from '../../components/SignUp/SignUp';
-import { MDBContainer, MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent } from 'mdb-react-ui-kit';
 
-import './Login.scss';
+const { Title } = Typography;
 
-const Login = () => {
+const fbProvider = new firebase.auth.FacebookAuthProvider();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+export default function Login() {
   const navigate = useNavigate();
+  const handleLogin = async (provider) => {
+    const { additionalUserInfo, user } = await auth.signInWithPopup(provider);
 
-  const [justifyActive, setJustifyActive] = useState('tab1');
-
-  const handleJustifyClick = (value) => {
-    if (value === justifyActive) {
-      return;
+    if (additionalUserInfo?.isNewUser) {
+      addDocument('users', {
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        uid: user.uid,
+        providerId: additionalUserInfo.providerId,
+        keywords: generateKeywords(user.displayName?.toLowerCase()),
+      });
     }
-    setJustifyActive(value);
+    localStorage.setItem('userId', user.uid);
+    navigate('/chat');
   };
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      navigate('/home');
+  React.useEffect(() => {
+    const login = localStorage.getItem('userId');
+    if (login) {
+      navigate('/chat');
+    } else {
+      navigate('/login');
     }
-  }, [localStorage.getItem('token')]);
+  }, [navigate]);
+
   return (
-    <React.Fragment>
-      <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
-        <MDBTabs pills justify className="mb-3 d-flex flex-row justify-content-between">
-          <MDBTabsItem>
-            <MDBTabsLink onClick={() => handleJustifyClick('tab1')} active={justifyActive === 'tab1'}>
-              Login
-            </MDBTabsLink>
-          </MDBTabsItem>
-          <MDBTabsItem>
-            <MDBTabsLink onClick={() => handleJustifyClick('tab2')} active={justifyActive === 'tab2'}>
-              Register
-            </MDBTabsLink>
-          </MDBTabsItem>
-        </MDBTabs>
-
-        <MDBTabsContent>
-          <LoginTab justifyActive={justifyActive} />
-          <SignUp justifyActive={justifyActive} />
-        </MDBTabsContent>
-      </MDBContainer>
-    </React.Fragment>
+    <div>
+      <Row justify="center" style={{ height: 800 }}>
+        <Col span={8}>
+          <Title style={{ textAlign: 'center' }} level={3}>
+            Fun Chat
+          </Title>
+          <Button style={{ width: '100%', marginBottom: 5 }} onClick={() => handleLogin(googleProvider)}>
+            Đăng nhập bằng Google
+          </Button>
+          <Button style={{ width: '100%' }} onClick={() => handleLogin(fbProvider)}>
+            Đăng nhập bằng Facebook
+          </Button>
+        </Col>
+      </Row>
+    </div>
   );
-};
-
-export default Login;
+}

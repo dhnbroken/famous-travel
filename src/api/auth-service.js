@@ -17,30 +17,14 @@ export const logout = async () => {
   localStorage.removeItem('userId');
 };
 
-export const signup = async ({
-  username,
-  password,
-  avatarPath,
-  firstname,
-  lastname,
-  emailAddress,
-  organization,
-  phoneNumber,
-  birthDate,
-  location,
-}) => {
+export const signup = async ({ username, password, emailAddress, firstname, lastname }) => {
   try {
     const res = await axiosInstance.post('/auth/register', {
       username,
       password,
-      avatarPath,
+      emailAddress,
       firstname,
       lastname,
-      emailAddress,
-      organization,
-      phoneNumber,
-      birthDate,
-      location,
     });
     if (res.status === 200) {
       localStorage.removeItem('isRegister');

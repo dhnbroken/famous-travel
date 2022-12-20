@@ -8,6 +8,7 @@ const LocationSchema = new mongoose.Schema(
     },
     longitude: { type: Number },
     latitude: { type: Number },
+    photoPath: { type: String },
   },
   {
     timestamps: true,

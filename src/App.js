@@ -1,38 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
-import React, { useEffect } from 'react';
-import MainRoutes from './routes/MainRoutes';
-import { useNavigate } from 'react-router-dom';
-import { GlobalStoreContext } from './Context/GlobalContext';
+import React from 'react';
+import { GlobalStoreContext } from './GlobalContext/GlobalContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AuthProvider from './Context/AuthProvider';
+import AppProvider from './Context/AppProvider';
+import MainRoutes from './routes/MainRoutes';
+import AddRoomModal from './components/Modals/AddRoomModal';
+import InviteMemberModal from './components/Modals/InviteMemberModal';
 
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!localStorage.getItem('token')) {
-      navigate('/login');
-    }
-  }, [localStorage.getItem('token')]);
   return (
     <React.Fragment>
       <GlobalStoreContext>
-        <MainRoutes />
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-        {/* Same as */}
-        <ToastContainer />
+        <AuthProvider>
+          <AppProvider>
+            <MainRoutes />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+            <AddRoomModal />
+            <InviteMemberModal />
+            <ToastContainer />
+          </AppProvider>
+        </AuthProvider>
       </GlobalStoreContext>
     </React.Fragment>
   );

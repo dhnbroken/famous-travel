@@ -22,7 +22,10 @@ const UserSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    emailAddress: String,
+    emailAddress: {
+      type: String,
+      required: true,
+    },
     avatarPath: String,
     phoneNumber: String,
     birthDate: String,

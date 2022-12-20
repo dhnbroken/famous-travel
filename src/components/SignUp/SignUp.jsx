@@ -1,20 +1,26 @@
 import React from 'react';
 import { MDBTabsPane, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
 import { useForm } from 'react-hook-form';
-import { GlobalContextProvider } from '../../Context/GlobalContext';
-import { useNavigate } from 'react-router-dom';
+import { GlobalContextProvider } from '../../GlobalContext/GlobalContext';
+import { signup } from 'src/api/auth-service';
 
 function SignUp({ justifyActive }) {
-  const { setUsername, setPassword, setEmail, username, password, email } = React.useContext(GlobalContextProvider);
-  const navigate = useNavigate();
+  const {
+    setUsername,
+    setPassword,
+    setEmail,
+    username,
+    password,
+    email,
+    firstname,
+    setFirstname,
+    lastname,
+    setLastname,
+  } = React.useContext(GlobalContextProvider);
 
   const { handleSubmit } = useForm();
   const formSubmitHandler = () => {
-    if (email && password && username) {
-      console.log(username, password, email);
-      localStorage.setItem('isRegister', true);
-      navigate('/user/info');
-    }
+    signup({ firstname, lastname, username, password, emailAddress: email }).then(justifyActive === 'tab1');
   };
 
   return (
@@ -43,8 +49,9 @@ function SignUp({ justifyActive }) {
 
           <p className="text-center mt-3">or:</p>
         </div>
-
         <MDBInput wrapperClass="mb-4" label="Username" type="text" onChange={(e) => setUsername(e.target.value)} />
+        <MDBInput wrapperClass="mb-4" label="First name" type="text" onChange={(e) => setFirstname(e.target.value)} />
+        <MDBInput wrapperClass="mb-4" label="Last name" type="text" onChange={(e) => setLastname(e.target.value)} />
         <MDBInput wrapperClass="mb-4" label="Email" type="email" onChange={(e) => setEmail(e.target.value)} />
         <MDBInput wrapperClass="mb-4" label="Password" type="password" onChange={(e) => setPassword(e.target.value)} />
         <MDBInput wrapperClass="mb-4" label="Password" type="password" onChange={(e) => setPassword(e.target.value)} />

@@ -6,8 +6,13 @@ import mongoose from 'mongoose';
 
 export const saveLocation = async (req, res) => {
   const newPlace = new LocationModel(req.body);
+  const { longitude, latitude } = req.body;
 
   try {
+    const oldLocation = await LocationModel.findOne({ longitude, latitude });
+    if (oldLocation) return res.status(400).json({ message: 'Location already saved' });
+
+    // if not
     await newPlace.save();
     res.status(200).json(newPlace);
   } catch (error) {

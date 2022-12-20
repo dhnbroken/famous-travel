@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
@@ -5,38 +6,18 @@ import { publicRoutes } from './Routes';
 import DefaultLayout from 'src/Layout/DefaultLayout/DefaultLayout';
 import Login from 'src/pages/Login/Login';
 import Home from 'src/pages/Home/Home';
-import UserInfo from 'src/pages/UserInfo/UserInfo';
-
-const getRegister = () => {
-  return localStorage.getItem('isRegister');
-};
-const getAccessToken = () => {
-  return localStorage.getItem('token');
-};
 
 const MainRoutes = () => {
+  const getAccess = () => {
+    return localStorage.getItem('userId');
+  };
+
   return (
     <React.Fragment>
       <Routes>
-        {publicRoutes.map((route, index) => {
+        {publicRoutes?.map((route, index) => {
           const Page = route.component;
-          return (
-            <Route
-              key={index}
-              path={route.path}
-              element={
-                getAccessToken() ? (
-                  <DefaultLayout>
-                    <Page />
-                  </DefaultLayout>
-                ) : getRegister() ? (
-                  <UserInfo />
-                ) : (
-                  <Login />
-                )
-              }
-            />
-          );
+          return <Route key={index} path={route.path} element={getAccess() ? <Page /> : <Login />} />;
         })}
         <Route
           path="/*"
