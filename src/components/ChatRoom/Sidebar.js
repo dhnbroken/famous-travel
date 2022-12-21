@@ -4,7 +4,7 @@ import UserInfo from './UserInfo';
 import RoomList from './RoomList';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocation, faMarker } from '@fortawesome/free-solid-svg-icons';
+import { faLocation } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 const SidebarStyled = styled.div`
@@ -16,7 +16,7 @@ const SidebarStyled = styled.div`
 export default function Sidebar() {
   const navigate = useNavigate();
   return (
-    <SidebarStyled>
+    <SidebarStyled className="xs-h-100">
       <Row>
         <Col span={24}>
           <UserInfo />

@@ -1,15 +1,14 @@
 // import PostModel from "../models/postModel.js";
 import LocationModel from '../models/locationModel.js';
-import mongoose from 'mongoose';
 
 // save location
 
 export const saveLocation = async (req, res) => {
   const newPlace = new LocationModel(req.body);
-  const { longitude, latitude } = req.body;
+  const { longitude, latitude, userId } = req.body;
 
   try {
-    const oldLocation = await LocationModel.findOne({ longitude, latitude });
+    const oldLocation = await LocationModel.findOne({ userId, longitude, latitude });
     if (oldLocation) return res.status(400).json({ message: 'Location already saved' });
 
     // if not
@@ -42,7 +41,6 @@ export const getAllLocation = async (req, res) => {
     places = places.filter((place) => {
       return place.userId === id;
     });
-    console.log(req);
     res.status(200).json(places);
   } catch (error) {
     res.status(500).json(error);

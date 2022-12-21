@@ -25,13 +25,10 @@ const PlaceDetails = ({ place, selected, refProp }) => {
       longitude: place.longitude,
       latitude: place.latitude,
       photoPath: place.photo.images.large.url,
+      address: place.address,
     };
     await savePlace(data);
     await getPlaceSaved();
-  };
-
-  const handleDeletePlace = async (place) => {
-    console.log(place);
   };
 
   return (
@@ -107,15 +104,6 @@ const PlaceDetails = ({ place, selected, refProp }) => {
           }}
         >
           Add to plan
-        </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => {
-            handleDeletePlace(place);
-          }}
-        >
-          Delete
         </Button>
       </CardActions>
     </Card>

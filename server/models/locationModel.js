@@ -6,9 +6,14 @@ const LocationSchema = new mongoose.Schema(
     name: {
       type: String,
     },
+    type: {
+      type: String,
+      default: 'Point',
+    },
     longitude: { type: Number },
     latitude: { type: Number },
     photoPath: { type: String },
+    address: { type: String },
   },
   {
     timestamps: true,

@@ -3,6 +3,7 @@ import { Collapse, Typography, Button } from 'antd';
 import styled from 'styled-components';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import { AppContext } from 'src/Context/AppProvider';
+import { useNavigate } from 'react-router-dom';
 
 const { Panel } = Collapse;
 
@@ -32,6 +33,12 @@ const LinkStyled = styled(Typography.Link)`
 
 export default function RoomList() {
   const { rooms, setIsAddRoomVisible, setSelectedRoomId } = React.useContext(AppContext);
+  const navigate = useNavigate();
+
+  const handleSelectedRoomId = (id) => {
+    navigate('/chat');
+    setSelectedRoomId(id);
+  };
 
   const handleAddRoom = () => {
     setIsAddRoomVisible(true);
@@ -42,7 +49,7 @@ export default function RoomList() {
       <PanelStyled header="Danh sách các phòng" key="1">
         {rooms.length &&
           rooms.map((room) => (
-            <LinkStyled key={room.id} onClick={() => setSelectedRoomId(room.id)}>
+            <LinkStyled key={room.id} onClick={() => handleSelectedRoomId(room.id)}>
               {room.name}
             </LinkStyled>
           ))}

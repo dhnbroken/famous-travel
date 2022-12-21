@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { auth } from 'src/firebase/config';
 import { AuthContext } from 'src/Context/AuthProvider';
 import { AppContext } from 'src/Context/AppProvider';
+import { useNavigate } from 'react-router-dom';
 
 const WrapperStyled = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const WrapperStyled = styled.div`
 `;
 
 export default function UserInfo() {
+  const navigate = useNavigate();
   const {
     user: { displayName, photoURL },
   } = React.useContext(AuthContext);
@@ -27,10 +29,10 @@ export default function UserInfo() {
   return (
     <WrapperStyled>
       <div>
-        <Avatar src={photoURL}>
+        <Avatar onClick={() => navigate('/user/info')} src={photoURL}>
           {photoURL ? '' : displayName?.charAt(0)?.toUpperCase()}
         </Avatar>
-        <Typography.Text className='username'>{displayName}</Typography.Text>
+        <Typography.Text className="username">{displayName}</Typography.Text>
       </div>
       <Button
         ghost

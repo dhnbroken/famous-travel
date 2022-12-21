@@ -8,6 +8,7 @@ import useStyles from './styles';
 import { logout } from '../../api/auth-service';
 import { auth } from 'src/firebase/config';
 import { AppContext } from 'src/Context/AppProvider';
+import AccountMenu from '../AccountMenu/AccountMenu';
 
 const Header = ({ setCoords }) => {
   const navigate = useNavigate();
@@ -51,9 +52,10 @@ const Header = ({ setCoords }) => {
             </div>
           </Autocomplete>
         </Box>
-        <Button variant="contained" color="secondary" onClick={handleLogOut}>
+        {/* <Button variant="contained" color="secondary" onClick={handleLogOut}>
           Log Out
-        </Button>
+        </Button> */}
+        <AccountMenu handleLogOut={handleLogOut} />
       </Toolbar>
     </AppBar>
   );

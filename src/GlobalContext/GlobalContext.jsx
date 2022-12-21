@@ -5,10 +5,17 @@ import { ProjectContext } from './ProjectContext';
 
 export const GlobalContextProvider = React.createContext(ProjectContext);
 export const GlobalStoreContext = ({ children }) => {
+  const [coords, setCoords] = useState({});
+
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [placeImg, setPlaceImg] = useState('');
+  const [placeName, setPlaceName] = useState('');
+  const [placeLongitude, setPlaceLongitude] = useState(0);
+  const [placeLatitude, setPlaceLatitude] = useState(0);
+  const [placeAddress, setPlaceAddress] = useState('');
   const [email, setEmail] = useState('');
   const [currentUser, setCurrentUser] = useState({});
   const [placeSaved, setPlaceSaved] = useState([]);
@@ -49,6 +56,18 @@ export const GlobalStoreContext = ({ children }) => {
     getUserInfomation,
     loading,
     setLoading,
+    placeImg,
+    setPlaceImg,
+    placeName,
+    placeAddress,
+    setPlaceName,
+    setPlaceAddress,
+    placeLongitude,
+    setPlaceLongitude,
+    placeLatitude,
+    setPlaceLatitude,
+    coords,
+    setCoords,
   };
   return <GlobalContextProvider.Provider value={valueContext}>{children}</GlobalContextProvider.Provider>;
 };

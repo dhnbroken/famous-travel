@@ -7,7 +7,10 @@ import { AppContext } from 'src/Context/AppProvider';
 import { addDocument } from 'src/firebase/services';
 import { AuthContext } from 'src/Context/AuthProvider';
 import useFirestore from 'src/hooks/useFirestore';
-
+import { GlobalContextProvider } from 'src/GlobalContext/GlobalContext';
+import PlaceSaved from './PlaceSaved';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
 const HeaderStyled = styled.div`
   display: flex;
   justify-content: space-between;
@@ -71,11 +74,15 @@ const MessageListStyled = styled.div`
 `;
 
 export default function ChatWindow() {
-  const { selectedRoom, members, setIsInviteMemberVisible } =
-    useContext(AppContext);
+  const { selectedRoom, members, setIsInviteMemberVisible } = useContext(AppContext);
   const {
     user: { uid, photoURL, displayName },
   } = useContext(AuthContext);
+  const { placeSaved, getPlaceSaved, placeImg, placeName, placeAddress, setPlaceImg, placeLongitude, placeLatitude } =
+    useContext(GlobalContextProvider);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
   const [inputValue, setInputValue] = useState('');
   const [form] = Form.useForm();
   const inputRef = useRef(null);
@@ -86,14 +93,20 @@ export default function ChatWindow() {
   };
 
   const handleOnSubmit = () => {
-    addDocument('messages', {
-      text: inputValue,
-      uid,
-      photoURL,
-      roomId: selectedRoom.id,
-      displayName,
-    });
-
+    (inputValue || placeImg) &&
+      addDocument('messages', {
+        text: inputValue,
+        uid,
+        photoURL,
+        roomId: selectedRoom.id,
+        displayName,
+        placeImg,
+        placeName,
+        placeAddress,
+        placeLongitude,
+        placeLatitude,
+      });
+    setPlaceImg('');
     form.resetFields(['message']);
 
     // focus to input again after submit
@@ -110,45 +123,47 @@ export default function ChatWindow() {
       operator: '==',
       compareValue: selectedRoom.id,
     }),
-    [selectedRoom.id]
+    [selectedRoom.id],
   );
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const messages = useFirestore('messages', condition);
 
   useEffect(() => {
     // scroll to bottom after message changed
     if (messageListRef?.current) {
-      messageListRef.current.scrollTop =
-        messageListRef.current.scrollHeight + 50;
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight + 50;
     }
   }, [messages]);
+
+  useEffect(() => {
+    getPlaceSaved();
+  }, []);
 
   return (
     <WrapperStyled>
       {selectedRoom.id ? (
         <>
           <HeaderStyled>
-            <div className='header__info'>
-              <p className='header__title'>{selectedRoom.name}</p>
-              <span className='header__description'>
-                {selectedRoom.description}
-              </span>
+            <div className="header__info">
+              <p className="header__title">{selectedRoom.name}</p>
+              <span className="header__description">{selectedRoom.description}</span>
             </div>
             <ButtonGroupStyled>
-              <Button
-                icon={<UserAddOutlined />}
-                type='text'
-                onClick={() => setIsInviteMemberVisible(true)}
-              >
+              <Button icon={<UserAddOutlined />} type="text" onClick={() => setIsInviteMemberVisible(true)}>
                 Mời
               </Button>
-              <Avatar.Group size='small' maxCount={2}>
+              <Avatar.Group size="small" maxCount={2}>
                 {members.map((member) => (
                   <Tooltip title={member.displayName} key={member.id}>
                     <Avatar src={member.photoURL}>
-                      {member.photoURL
-                        ? ''
-                        : member.displayName?.charAt(0)?.toUpperCase()}
+                      {member.photoURL ? '' : member.displayName?.charAt(0)?.toUpperCase()}
                     </Avatar>
                   </Tooltip>
                 ))}
@@ -164,34 +179,45 @@ export default function ChatWindow() {
                   photoURL={mes.photoURL}
                   displayName={mes.displayName}
                   createdAt={mes.createdAt}
+                  placeImg={mes.placeImg}
+                  placeName={mes.placeName}
+                  placeAddress={mes.placeAddress}
+                  placeLongitude={mes.placeLongitude}
+                  placeLatitude={mes.placeLatitude}
                 />
               ))}
             </MessageListStyled>
             <FormStyled form={form}>
-              <Form.Item name='message'>
+              <Button onClick={handleClick}>+</Button>
+              <PlaceSaved anchorEl={anchorEl} open={open} handleClose={handleClose} placeSaved={placeSaved} />
+              {placeImg && (
+                <div className="position-relative">
+                  <img src={placeImg} alt="demo" width={'8%'} className="ml-2" />
+                  <FontAwesomeIcon
+                    onClick={() => setPlaceImg('')}
+                    icon={faClose}
+                    className="position-absolute top-0 right-0"
+                  />
+                </div>
+              )}
+              <Form.Item name="message">
                 <Input
                   ref={inputRef}
                   onChange={handleInputChange}
                   onPressEnter={handleOnSubmit}
-                  placeholder='Nhập tin nhắn...'
+                  placeholder="Nhập tin nhắn..."
                   bordered={false}
-                  autoComplete='off'
+                  autoComplete="off"
                 />
               </Form.Item>
-              <Button type='primary' onClick={handleOnSubmit}>
+              <Button type="primary" onClick={handleOnSubmit}>
                 Gửi
               </Button>
             </FormStyled>
           </ContentStyled>
         </>
       ) : (
-        <Alert
-          message='Hãy chọn phòng'
-          type='info'
-          showIcon
-          style={{ margin: 5 }}
-          closable
-        />
+        <Alert message="Hãy chọn phòng" type="info" showIcon style={{ margin: 5 }} closable />
       )}
     </WrapperStyled>
   );
