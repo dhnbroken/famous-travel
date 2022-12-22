@@ -9,11 +9,11 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    response.status === 200 && toast.success('Success', toastMsg);
+    response.status === 200 && toast.success('Thành công', toastMsg);
     return response;
   },
   (error) => {
-    toast.error(error.response.data, toastMsg);
+    toast.error(error.response.data.message, toastMsg);
     return error;
   },
 );

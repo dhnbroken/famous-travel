@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
+import 'src/assets/scss/styles.scss';
 import React, { useEffect } from 'react';
 import { GlobalStoreContext } from './GlobalContext/GlobalContext';
 import { ToastContainer } from 'react-toastify';

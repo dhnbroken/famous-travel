@@ -21,7 +21,9 @@ const List = ({ places, childClicked, isLoading, type, setType, rating, setRatin
 
   return (
     <div className={classes.container}>
-      <Typography variant="h4">Restaurant, Hotels & Attractions around you</Typography>
+      <Typography className="mb-3" variant="h4">
+        Nhà hàng, khách sạn & Điểm du lịch gần bạn
+      </Typography>
       {isLoading ? (
         <div className={classes.loading}>
           <CircularProgress size="5rem" />
@@ -30,20 +32,20 @@ const List = ({ places, childClicked, isLoading, type, setType, rating, setRatin
         <>
           <div className="mb-3">
             <FormControl className={classes.formControl}>
-              <InputLabel>Type</InputLabel>
+              <InputLabel>Loại</InputLabel>
               <Select value={type} onChange={(e) => setType(e.target.value)}>
-                <MenuItem value="restaurants">Restaurant</MenuItem>
-                <MenuItem value="hotels">Hotels</MenuItem>
-                <MenuItem value="attractions">Attractions</MenuItem>
+                <MenuItem value="restaurants">Nhà hàng</MenuItem>
+                <MenuItem value="hotels">Khách sạn</MenuItem>
+                <MenuItem value="attractions">Điểm du lịch</MenuItem>
               </Select>
             </FormControl>
             <FormControl className={[classes.formControl, 'ml-3']}>
-              <InputLabel>Rating</InputLabel>
+              <InputLabel>Đánh giá</InputLabel>
               <Select value={rating} onChange={(e) => setRating(e.target.value)}>
-                <MenuItem value={0}>All</MenuItem>
-                <MenuItem value={3}>Above 3.0</MenuItem>
-                <MenuItem value={4}>Above 4.0</MenuItem>
-                <MenuItem value={4.5}>Above 4.5</MenuItem>
+                <MenuItem value={0}>Tất cả</MenuItem>
+                <MenuItem value={3}>Trên 3</MenuItem>
+                <MenuItem value={4}>Trên 4</MenuItem>
+                <MenuItem value={4.5}>Trên 4.5</MenuItem>
               </Select>
             </FormControl>
           </div>

@@ -103,7 +103,7 @@ const PlaceDetails = ({ place, selected, refProp }) => {
             handleSavePlace(place);
           }}
         >
-          Add to plan
+          Lưu địa điểm
         </Button>
       </CardActions>
     </Card>

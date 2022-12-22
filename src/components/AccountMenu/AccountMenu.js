@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import Logout from '@mui/icons-material/Logout';
-import { AuthContext } from 'src/Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 export default function AccountMenu(props) {
@@ -27,7 +26,7 @@ export default function AccountMenu(props) {
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <Button className="text-white" sx={{ minWidth: '100' }} onClick={() => navigate('/chat')} variant="text">
-          Chatroom
+          Phòng chat
         </Button>
         <Tooltip title="Account settings">
           <IconButton
@@ -78,14 +77,14 @@ export default function AccountMenu(props) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={() => navigate('/user/info')}>
-          <Avatar /> Profile
+          <Avatar /> Cá nhân
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleLogOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Đăng xuất
         </MenuItem>
       </Menu>
     </React.Fragment>

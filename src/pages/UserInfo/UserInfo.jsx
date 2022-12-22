@@ -36,7 +36,7 @@ function UserInfo() {
             <div className="row">
               <div className="col-xl-4">
                 <div className="card mb-4 mb-xl-0">
-                  <div className="card-header">Profile Picture</div>
+                  <div className="card-header">Avatar</div>
                   <div className="card-body text-center">
                     <img
                       className="avatar"
@@ -48,12 +48,12 @@ function UserInfo() {
               </div>
               <div className="col-xl-8">
                 <div className="card mb-4">
-                  <div className="card-header">Account Details</div>
+                  <div className="card-header">Chi tiết</div>
                   <div className="card-body">
                     <div className="row gx-3 mb-3">
                       <div className="col-md-6">
                         <label className="small mb-1" htmlFor="inputFirstName">
-                          First name
+                          Họ
                         </label>
                         <input
                           className="form-control"
@@ -65,7 +65,7 @@ function UserInfo() {
                       </div>
                       <div className="col-md-6">
                         <label className="small mb-1" htmlFor="inputLastName">
-                          Last name
+                          Tên
                         </label>
                         <input
                           className="form-control"
@@ -78,7 +78,7 @@ function UserInfo() {
                     </div>
                     <div className="mb-3">
                       <label className="small mb-1" htmlFor="inputEmailAddress">
-                        Email address
+                        Địa chỉ Email
                       </label>
                       <input
                         className="form-control"
@@ -93,7 +93,7 @@ function UserInfo() {
                     <div className="row gx-3 mb-3">
                       <div className="col-md-6">
                         <label className="small mb-1" htmlFor="inputPhone">
-                          Phone number
+                          Số điện thoại
                         </label>
                         <input
                           className="form-control"
@@ -105,7 +105,7 @@ function UserInfo() {
                       </div>
                       <div className="col-md-6">
                         <label className="small mb-1" htmlFor="inputBirthday">
-                          Birthday
+                          Ngày sinh
                         </label>
                         <input
                           className="form-control"
@@ -118,10 +118,10 @@ function UserInfo() {
                       </div>
                     </div>
                     <button className="btn btn-primary" type="submit">
-                      Save changes
+                      Lưu
                     </button>
                     <button className="btn btn-danger ml-3" type="button" onClick={handleCancleSave}>
-                      Cancel
+                      Hủy
                     </button>
                   </div>
                 </div>

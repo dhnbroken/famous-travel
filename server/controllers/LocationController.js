@@ -9,7 +9,7 @@ export const saveLocation = async (req, res) => {
 
   try {
     const oldLocation = await LocationModel.findOne({ userId, longitude, latitude });
-    if (oldLocation) return res.status(400).json({ message: 'Location already saved' });
+    if (oldLocation) return res.status(400).json({ message: 'Đã lưu địa điểm này' });
 
     // if not
     await newPlace.save();
