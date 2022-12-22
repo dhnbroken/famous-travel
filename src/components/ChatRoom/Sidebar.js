@@ -4,7 +4,7 @@ import UserInfo from './UserInfo';
 import RoomList from './RoomList';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocation } from '@fortawesome/free-solid-svg-icons';
+import { faLocation, faMapLocation } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 const SidebarStyled = styled.div`
@@ -32,7 +32,7 @@ export default function Sidebar() {
         </Col>
         <Col span={24}>
           <Button type="text" className="add-room text-white" onClick={() => navigate('/')}>
-            <FontAwesomeIcon icon={faLocation} />
+            <FontAwesomeIcon icon={faMapLocation} />
             &ensp; Bản đồ
           </Button>
         </Col>
