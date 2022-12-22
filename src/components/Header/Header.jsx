@@ -38,7 +38,7 @@ const Header = ({ setCoords }) => {
       <Toolbar className={classes.toolbar}>
         <Typography variant="h5" className={classes.title}>
           <Link to={'/home'} className={classes.link}>
-            Travel Advisor
+            Travel Planner
           </Link>
         </Typography>
         <Box display="flex">
