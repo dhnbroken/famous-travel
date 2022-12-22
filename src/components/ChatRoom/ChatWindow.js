@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { UserAddOutlined } from '@ant-design/icons';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -191,8 +192,8 @@ export default function ChatWindow() {
               <Button onClick={handleClick}>+</Button>
               <PlaceSaved anchorEl={anchorEl} open={open} handleClose={handleClose} placeSaved={placeSaved} />
               {placeImg && (
-                <div className="position-relative">
-                  <img src={placeImg} alt="demo" width={'8%'} className="ml-2" />
+                <div className="position-relative w-10">
+                  <img src={placeImg} alt="demo" width="50%" className="ml-2" />
                   <FontAwesomeIcon
                     onClick={() => setPlaceImg('')}
                     icon={faClose}

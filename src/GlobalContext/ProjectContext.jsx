@@ -27,4 +27,6 @@ export const ProjectContext = {
   setPlaceLatitude: () => {},
   coords: {},
   setCoords: () => {},
+  currentCoords: {},
+  setCurrentCoords: () => {},
 };

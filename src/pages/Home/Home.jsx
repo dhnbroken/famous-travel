@@ -16,7 +16,7 @@ function Home() {
   const [filteredPlaces, setFilteredPlaces] = useState([]);
 
   const [bounds, setBounds] = useState({});
-  const { coords, setCoords } = useContext(GlobalContextProvider);
+  const { coords, setCoords, currentCoords, setCurrentCoords } = useContext(GlobalContextProvider);
 
   const [type, setType] = useState('restaurants');
   const [rating, setRating] = useState(0);
@@ -26,6 +26,10 @@ function Home() {
     Object.keys(coords).length === 0 &&
       navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
         setCoords({ lat: latitude, lng: longitude });
+      });
+    Object.keys(currentCoords).length === 0 &&
+      navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
+        setCurrentCoords({ lat: latitude, lng: longitude });
       });
   }, []);
 
@@ -66,6 +70,7 @@ function Home() {
             setCoords={setCoords}
             setBounds={setBounds}
             coords={coords}
+            currentCoords={currentCoords}
             places={filteredPlaces.length ? filteredPlaces : places}
             setChildClicked={setChildClicked}
           />

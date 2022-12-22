@@ -49,11 +49,12 @@ export default function Message({
   placeLongitude,
   placeLatitude,
 }) {
-  const { setCoords } = useContext(GlobalContextProvider);
+  const { setCoords, setCurrentCoords } = useContext(GlobalContextProvider);
   const navigate = useNavigate();
 
   const showInfoPlace = () => {
     setCoords({ lat: placeLatitude, lng: placeLongitude });
+    setCurrentCoords({ lat: placeLatitude, lng: placeLongitude });
     navigate('/');
   };
   return (
@@ -68,7 +69,7 @@ export default function Message({
       <div>
         <Typography.Text className="content">{text}</Typography.Text>
         {placeImg && (
-          <MDBCard className="content" style={{ maxWidth: '540px' }} onClick={showInfoPlace}>
+          <MDBCard className="content cursor-pointer" style={{ maxWidth: '540px' }} onClick={showInfoPlace}>
             <MDBRow className="g-0">
               <MDBCol md="4">
                 <MDBCardImage src={placeImg} alt="..." fluid />

@@ -5,17 +5,22 @@ import { ProjectContext } from './ProjectContext';
 
 export const GlobalContextProvider = React.createContext(ProjectContext);
 export const GlobalStoreContext = ({ children }) => {
+  //location
   const [coords, setCoords] = useState({});
+  const [currentCoords, setCurrentCoords] = useState({});
 
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  //Firebase location data
   const [placeImg, setPlaceImg] = useState('');
   const [placeName, setPlaceName] = useState('');
   const [placeLongitude, setPlaceLongitude] = useState(0);
   const [placeLatitude, setPlaceLatitude] = useState(0);
   const [placeAddress, setPlaceAddress] = useState('');
+
   const [email, setEmail] = useState('');
   const [currentUser, setCurrentUser] = useState({});
   const [placeSaved, setPlaceSaved] = useState([]);
@@ -67,7 +72,9 @@ export const GlobalStoreContext = ({ children }) => {
     placeLatitude,
     setPlaceLatitude,
     coords,
+    currentCoords,
     setCoords,
+    setCurrentCoords,
   };
   return <GlobalContextProvider.Provider value={valueContext}>{children}</GlobalContextProvider.Provider>;
 };

@@ -4,8 +4,14 @@ import { Paper, Typography, useMediaQuery, Rating } from '@mui/material';
 import { LocationOnOutlined } from '@mui/icons-material';
 
 import useStyles from './styles';
-
-const MapDetails = ({ setCoords, setBounds, coords, places, setChildClicked }) => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+const AnyReactComponent = () => (
+  <div className="z-1000">
+    <FontAwesomeIcon icon={faLocationDot} className="fa-3x text-xl text-danger" />
+  </div>
+);
+const MapDetails = ({ setCoords, setBounds, coords, places, setChildClicked, currentCoords }) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery('(min-width: 600px)');
   const placesPhoto =
@@ -26,6 +32,8 @@ const MapDetails = ({ setCoords, setBounds, coords, places, setChildClicked }) =
         }}
         onChildClick={(child) => setChildClicked(child)}
       >
+        {/* <Marker position={coords} /> */}
+        <AnyReactComponent lat={currentCoords.lat} lng={currentCoords.lng} />
         {!!places?.length &&
           places?.map((place, index) => (
             <div
