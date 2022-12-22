@@ -11,9 +11,9 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 export default function Login() {
   const navigate = useNavigate();
+
   const handleLogin = async (provider) => {
     const { additionalUserInfo, user } = await auth.signInWithPopup(provider);
-
     if (additionalUserInfo?.isNewUser) {
       addDocument('users', {
         displayName: user.displayName,
@@ -29,11 +29,10 @@ export default function Login() {
   };
 
   React.useEffect(() => {
+    console.log('Local changed');
     const login = localStorage.getItem('userId');
-    if (login) {
+    if (!!login) {
       navigate('/chat');
-    } else {
-      navigate('/login');
     }
   }, [navigate]);
 

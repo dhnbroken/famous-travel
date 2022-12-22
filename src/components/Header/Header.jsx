@@ -52,9 +52,6 @@ const Header = ({ setCoords }) => {
             </div>
           </Autocomplete>
         </Box>
-        {/* <Button variant="contained" color="secondary" onClick={handleLogOut}>
-          Log Out
-        </Button> */}
         <AccountMenu handleLogOut={handleLogOut} />
       </Toolbar>
     </AppBar>

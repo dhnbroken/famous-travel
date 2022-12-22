@@ -7,11 +7,11 @@ import DefaultLayout from 'src/Layout/DefaultLayout/DefaultLayout';
 import Login from 'src/pages/Login/Login';
 import Home from 'src/pages/Home/Home';
 
-const MainRoutes = () => {
-  const getAccess = () => {
-    return localStorage.getItem('userId');
-  };
+const getAccess = () => {
+  return localStorage.getItem('userId');
+};
 
+const MainRoutes = () => {
   return (
     <React.Fragment>
       <Routes>
