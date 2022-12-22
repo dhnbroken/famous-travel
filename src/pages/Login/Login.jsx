@@ -42,7 +42,7 @@ export default function Login() {
       <Row justify="center" style={{ height: 800 }}>
         <Col span={8}>
           <Title style={{ textAlign: 'center' }} level={3}>
-            Fun Chat
+            Travel Planner Group
           </Title>
           <Button style={{ width: '100%', marginBottom: 5 }} onClick={() => handleLogin(googleProvider)}>
             Đăng nhập bằng Google
