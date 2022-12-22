@@ -30,6 +30,12 @@ export default function Sidebar() {
             &ensp; Danh sách địa điểm đã lưu
           </Button>
         </Col>
+        <Col span={24}>
+          <Button type="text" className="add-room text-white" onClick={() => navigate('/')}>
+            <FontAwesomeIcon icon={faLocation} />
+            &ensp; Bản đồ
+          </Button>
+        </Col>
       </Row>
     </SidebarStyled>
   );

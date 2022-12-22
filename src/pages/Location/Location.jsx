@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { GlobalContextProvider } from 'src/GlobalContext/GlobalContext';
-import { removePlace } from 'src/api/plan-service';
 import Sidebar from 'src/components/ChatRoom/Sidebar';
 import { Row, Col } from 'antd';
 import { Spin } from 'antd';
@@ -10,19 +9,13 @@ import { useNavigate } from 'react-router-dom';
 
 function Location() {
   const navigate = useNavigate();
-  const { getPlaceSaved, placeSaved, setPlaceSaved, setLoading, loading, setCoords } =
+  const { getPlaceSaved, placeSaved, handleRemovePlace, setLoading, loading, setCoords } =
     useContext(GlobalContextProvider);
 
   useEffect(() => {
     setLoading(true);
     getPlaceSaved();
   }, []);
-
-  const handleRemovePlace = (id) => {
-    removePlace(id);
-    const newPlaceSaved = placeSaved.filter((place) => place._id !== id);
-    setPlaceSaved(newPlaceSaved);
-  };
 
   const showPlaceInMap = (place) => {
     setCoords({ lat: place.latitude, lng: place.longitude });
@@ -43,9 +36,10 @@ function Location() {
               <div className="row text-center">
                 {!!placeSaved.length ? (
                   placeSaved?.map((place, index) => (
-                    <div key={index} className="col-xl-3 col-sm-6 mb-5" onClick={() => showPlaceInMap(place)}>
+                    <div key={index} className="col-xl-3 col-sm-6 mb-5">
                       <div className="bg-white shadow-sm py-5 px-4">
                         <CardMedia
+                          onClick={() => showPlaceInMap(place)}
                           sx={{ height: 150 }}
                           image={
                             place.photoPath

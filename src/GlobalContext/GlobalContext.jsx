@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { getCurrentUser } from 'src/api/user-service';
 import { getPlace } from 'src/api/plan-service';
 import { ProjectContext } from './ProjectContext';
+import { removePlace } from 'src/api/plan-service';
 
 export const GlobalContextProvider = React.createContext(ProjectContext);
 export const GlobalStoreContext = ({ children }) => {
@@ -43,6 +44,12 @@ export const GlobalStoreContext = ({ children }) => {
     } catch (error) {}
   };
 
+  const handleRemovePlace = (id) => {
+    removePlace(id);
+    const newPlaceSaved = placeSaved.filter((place) => place._id !== id);
+    setPlaceSaved(newPlaceSaved);
+  };
+
   const valueContext = {
     username,
     setUsername,
@@ -75,6 +82,7 @@ export const GlobalStoreContext = ({ children }) => {
     currentCoords,
     setCoords,
     setCurrentCoords,
+    handleRemovePlace,
   };
   return <GlobalContextProvider.Provider value={valueContext}>{children}</GlobalContextProvider.Provider>;
 };

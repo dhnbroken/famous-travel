@@ -1,6 +1,5 @@
 import express from 'express';
 import { saveLocation, getAllLocation, deleteLocation, getLocation } from '../controllers/LocationController.js';
-import authMiddleWare from '../middleware/AuthMiddleware.js';
 const router = express.Router();
 
 router.post('/save', saveLocation);

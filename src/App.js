@@ -13,9 +13,9 @@ import InviteMemberModal from './components/Modals/InviteMemberModal';
 function App() {
   return (
     <React.Fragment>
-      <GlobalStoreContext>
-        <AuthProvider>
-          <AppProvider>
+      <AuthProvider>
+        <AppProvider>
+          <GlobalStoreContext>
             <MainRoutes />
             <ToastContainer
               position="top-right"
@@ -32,9 +32,9 @@ function App() {
             <AddRoomModal />
             <InviteMemberModal />
             <ToastContainer />
-          </AppProvider>
-        </AuthProvider>
-      </GlobalStoreContext>
+          </GlobalStoreContext>
+        </AppProvider>
+      </AuthProvider>
     </React.Fragment>
   );
 }

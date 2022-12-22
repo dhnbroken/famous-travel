@@ -29,4 +29,5 @@ export const ProjectContext = {
   setCoords: () => {},
   currentCoords: {},
   setCurrentCoords: () => {},
+  handleRemovePlace: () => {},
 };
