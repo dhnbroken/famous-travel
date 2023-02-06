@@ -5,7 +5,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 var firebaseConfig = {
-  apiKey: 'AIzaSyAWNnG7TwIbJtLa-GKulp8ABnBgZeSpLzc',
+  apiKey: '', // Fill your firebase API key
   authDomain: 'do-an-3d.firebaseapp.com',
   projectId: 'do-an-3d',
   storageBucket: 'do-an-3d.appspot.com',
